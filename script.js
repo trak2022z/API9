@@ -1,5 +1,6 @@
 /*
  * CSE 154
+ * Section 11: Post Example
  */
 'use strict';
 (function() {
@@ -8,18 +9,27 @@
   window.addEventListener('load', init);
 
   /**
-   * TODO - setup the sign-in button on initial page load
+   * setup the sign-in button on initial page load
    */
   function init() {
-    // TODO
+    qs('form').addEventListener('submit', (e)  => {
+      e.preventDefault();
+      signIn();
+    });
   }
 
   /**
-   * TODO
-   * signIn - Signs the user in based on username and password inputs
+   * signs the user in based on username and password inputs
    */
   function signIn() {
-    //TODO
+    let data =  new FormData();
+    data.append('user', id('username').value);
+    data.append('password', id('password').value);
+    fetch(API_URL, {method: 'POST', body: data})
+      .then(statusCheck)
+      .then(res => res.text())
+      .then((res) => id('response').textContent = res)
+      .catch(console.error);
   }
 
   /* ------------------------------ Helper Functions  ------------------------------ */
